@@ -1,0 +1,2 @@
+<?php
+	$config["qr_directory"] = DOCROOT . 'qr'
