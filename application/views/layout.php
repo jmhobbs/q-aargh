@@ -1,10 +1,11 @@
 <html>
 	<head>
-		<title>Q-Aargh! <?= $title; ?></title>
+		<title><?= Kohana::lang( 'general.sitename' ); ?> <?= $title; ?></title>
 		<?= html::stylesheet( 'css/main', 'screen', true ); ?>
 	</head>
 	<body>
 		<div id="header">
+			<?= html::image( array( 'src' => 'img/pirate.png', 'with' => 128, 'height' => 128 ), array( 'id' => 'the_captain' ) ); ?>
 			<h1><?= $title; ?></h1>
 		</div>
 		<?php
