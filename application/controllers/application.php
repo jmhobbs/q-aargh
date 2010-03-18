@@ -18,13 +18,13 @@
 				$this->template->view = new View( strtolower( router::$controller . '/' . router::$method ) );
 			}
 			catch( Exception $e ) {
-				$this->template->view = new View( 'errors/missing_view' );
+				$this->template->view = new View( 'error/missing_view' );
 			}
 
 		}
 
 		public function __call( $method, $arguments ) {
 			$this->template->title = "404";
-			$this->template->view = new View( 'errors/404');
+			$this->template->view = new View( 'error/404');
 		}
 	}
