@@ -1,0 +1,19 @@
+<?php
+	$config['default'] = array (
+		'benchmark'     => TRUE,
+		'persistent'    => FALSE,
+		'connection'    => array (
+			'type'     => 'mysql',
+			'user'     => 'dbuser',
+			'pass'     => 'p@ssw0rd',
+			'host'     => 'localhost',
+			'port'     => FALSE,
+			'socket'   => FALSE,
+			'database' => 'qaargh'
+		),
+		'character_set' => 'utf8',
+		'table_prefix'  => '',
+		'object'        => TRUE,
+		'cache'         => FALSE,
+		'escape'        => TRUE
+	);

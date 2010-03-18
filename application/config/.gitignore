@@ -1,2 +1,2 @@
-config.php
-auth.php
+*.php
+!routes.php
