@@ -2,6 +2,6 @@
 
 	class User_Model extends Auth_User_Model {
 		
-		protected $has_many = array( 'islands' );
+		protected $has_many = array( 'islands', 'text_posts' );
 		
 	} // class User_Model

@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title><?= Kohana::lang( 'general.sitename' ); ?> <?= $title; ?></title>
+		<title><?= Kohana::lang( 'general.sitename' ); ?> <?= html::specialchars( $title ); ?></title>
 		<?= html::stylesheet( 'css/main', 'screen', true ); ?>
 	</head>
 	<body>
