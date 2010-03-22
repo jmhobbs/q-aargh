@@ -1,3 +1,1 @@
-<p>
-	<?= html::specialchars( $island->introduction ); ?>
-</p>
+<?= text::auto_p( html::specialchars( $island->introduction ) ); ?>

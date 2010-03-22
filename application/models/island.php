@@ -12,4 +12,10 @@
 				return false;
 		}
 	
+		public function save () {
+			if( empty( $this->code ) )
+				$this->code = sha1( $this->title . $this->created . $this->user_id );
+			parent::save();
+		}
+
 	}

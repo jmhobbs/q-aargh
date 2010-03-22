@@ -61,7 +61,7 @@
 		}
 
 		public function __call( $method, $arguments ) {
-			$this->template->title = "404";
+			$this->template->title = Kohana::lang( 'error.404' );
 			$this->template->view = new View( 'error/404');
 		}
 	}

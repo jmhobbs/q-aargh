@@ -32,4 +32,17 @@
 				}
 			}
 		} // User_Controller::login
+		
+// 		function admin_create ( $username, $password ) {
+// 				$user = ORM::factory( 'user' );
+// 				$user->username = $username;
+// 				$user->password = $password;
+// 				$user->add( ORM::factory( 'role', 'admin' ) );
+// 				if( $user->add( ORM::factory( 'role', 'login' ) ) and $user->save() )
+// 					$this->session->set_flash( 'notice', 'User "' . html::specialchars( $user->username ) . '" created.' );
+// 				else
+// 					$this->session->set_flash( 'error', 'User "' . html::specialchars( $user->username ) . '" not created.' );
+// 				
+// 				url::redirect( '/' );
+// 		}
 	}

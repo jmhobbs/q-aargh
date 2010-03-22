@@ -13,10 +13,10 @@ CREATE TABLE IF NOT EXISTS `islands` (
   `post_password` varchar(255) NOT NULL,
   
   `views` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `last_view` int(10) UNSIGNED,
+  `last_view` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   
-   `created` int(10) UNSIGNED NOT NULL,
-   `modified` int(10) UNSIGNED NOT NULL,
+   `created` datetime NOT NULL,
+   `modified` datetime NOT NULL,
   
   PRIMARY KEY  ( `id` ),
   UNIQUE KEY `uniq_code` ( `code` )
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `text_posts` (
   `text` text NOT NULL DEFAULT '',
   
   `visibility` varchar(10) NOT NULL DEFAULT 'private',
-  `created` int(10) UNSIGNED NOT NULL,
+  `created` datetime NOT NULL,
   
   PRIMARY KEY  ( `id` ),
   KEY `fk_user_id` ( `user_id` ),
