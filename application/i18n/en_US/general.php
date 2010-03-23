@@ -2,5 +2,6 @@
 
 	$lang = array(
 		'sitename' => 'Q-Aargh!',
-		'login_required' => 'You must login first.'
+		'login_required' => 'You must login first.',
+		'home' => 'Home',
 	);

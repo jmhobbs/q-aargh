@@ -4,7 +4,7 @@
 	
 		protected $auth_required = array(
 			'edit' => '*',
-			/*'create' => '*'*/
+			'create' => '*'
 		);
 	
 		public function index ( $code ) {

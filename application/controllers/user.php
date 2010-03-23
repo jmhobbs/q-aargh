@@ -2,7 +2,24 @@
 
 	class User_Controller extends Application_Controller {
 	
-		function index () {}
+		protected $auth_required = array();
+	
+		function index ( $username = null ) {
+		
+			$this->template->view->username = $username;
+			$this->template->title = Kohana::lang( 'user.view' );
+		
+			if( is_null( $username ) )
+				$user = Auth::instance()->get_user();
+			else
+				$user = ORM::factory( 'user' )->where( 'username', $username )->find();
+			
+			if( false === $user || ! $user->loaded ) {
+				$this->template->view = new View( 'user/missing' );
+				$this->template->view->username = $username;
+				return;
+			}
+		}
 	
 		function logout () {
 			Auth::instance()->logout();
@@ -13,9 +30,7 @@
 		function login () {
 			if( Auth::instance()->logged_in() )
 				url::redirect( "/user" );
-			
-			$this->template->nav->links = array( Kohana::lang( 'user.log_in' ) => '/user/login' );
-			
+
 			$this->template->view->username = '';
 			
 			if( $post = $this->input->post() ) {
@@ -32,6 +47,12 @@
 				}
 			}
 		} // User_Controller::login
+		
+		function create () {
+			$this->template->title = Kohana::lang( 'user.sign_up' );
+			$this->template->view->username = '';
+			$this->template->view->email = '';
+		} // User_Controller::create
 		
 // 		function admin_create ( $username, $password ) {
 // 				$user = ORM::factory( 'user' );

@@ -22,6 +22,11 @@
 				$this->template->view = new View( 'error/missing_view' );
 			}
 
+			if( Auth::instance()->logged_in() )
+				$this->template->menu = new View( 'menu/logged_in' );
+			else
+				$this->template->menu = new View( 'menu/logged_out' );
+
 			// Handle built-in authorization
 			if( array_key_exists( router::$method, $this->auth_required ) ) {
 
