@@ -1,2 +1,4 @@
 <?php
 	$config["qr_directory"] = DOCROOT . 'qr'
+	$config["version"] = 0.1;
+	$config["homepage"] = 'home';

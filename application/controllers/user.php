@@ -2,7 +2,9 @@
 
 	class User_Controller extends Application_Controller {
 	
-		protected $auth_required = array();
+		protected $auth_required = array(
+			'islands' => '*'
+		);
 	
 		function index ( $username = null ) {
 		
@@ -53,6 +55,10 @@
 			$this->template->view->username = '';
 			$this->template->view->email = '';
 		} // User_Controller::create
+		
+		function islands () {
+			$this->template->view->islands = ORM::factory( 'island' )->where( 'user_id', Auth::instance()->get_user()->id )->find_all();
+		}
 		
 // 		function admin_create ( $username, $password ) {
 // 				$user = ORM::factory( 'user' );

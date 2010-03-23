@@ -8,3 +8,5 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `modified` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY  ( `stub` )
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `pages` VALUES ('home','Welcome to Q-Aargh!','Welcome!',0,0,0,0);

@@ -1,7 +1,8 @@
 <?php
 
 	$lang = array(
-		'log_in' => 'Login',
+		'log_in' => 'Log In',
+		'log_out' => 'Log Out',
 		'logged_out' => 'Logged Out',
 		'logged_in' => 'Logged In',
 		'credentials_required' => 'Username and password are required.',
@@ -12,4 +13,5 @@
 		'sign_up' => 'Create Account',
 		'view' => 'View User',
 		'missing' => 'No such user!',
+		'my_islands' => 'My Islands',
 	);
