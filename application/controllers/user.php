@@ -74,14 +74,27 @@
 					$user->password = $post['password'];
 
 					if( $user->save() ) {
+						// Save confirm code
 						$prop = ORM::factory( 'user_property' );
 						$prop->user_id = $user->id;
 						$prop->key = 'confirm';
 						$prop->value = sha1( $user->id . time() . Kohana::config( 'qaargh.confirm_salt' ) );
 						$prop->save();
-						//! \todo Send confirmation email!
-						$this->session->set_flash( 'notice', 'User Created' );
-						url::redirect( "/user/login" );
+						// Send confirm email
+						$to = $post['email'];
+						$from = Kohana::config( 'qaargh.mailer' );
+						$subject = Kohana::lang( 'user.email_account_created' );
+						
+						$email_view = new View( 'user/confirm_email' );
+						$email_view->code = $prop->value;
+
+						$message = $email_view->render();
+						
+						email::send( $to, $from, $subject, $message, TRUE );
+						
+						// And bounce.
+						$this->session->set_flash( 'notice', Kohana::lang( 'user.user_created' ) );
+						url::redirect( "/user/confirm" );
 					}
 				}
 				else {
@@ -90,6 +103,28 @@
 			}
 			
 		} // User_Controller::create
+		
+		function confirm ( $code = null ) {
+		
+			if( $post = $this->input->post() )
+				$code = $post['code'];
+		
+			$prop = ORM::factory( 'user_property' )->where( 'key', 'confirm' )->where( 'value', $code )->find();
+			
+			if( $prop->loaded ) {
+				$user = ORM::factory( 'user', $prop->user_id );
+				$prop->delete();
+				$user->add( ORM::factory( 'role', 'login' ) );
+				$user->save();
+				Auth::instance()->force_login( $user->username );
+				$this->session->set_flash( 'notice', Kohana::lang( 'user.account_confirmed' ) );
+				url::redirect( '/user' );
+			}
+			else {
+				$this->session->set_flash( 'error', Kohana::lang( 'user.no_user_for_confirm_code' ) );
+			}
+
+		}
 		
 		function islands () {
 			$this->template->view->islands = ORM::factory( 'island' )->where( 'user_id', Auth::instance()->get_user()->id )->find_all();
