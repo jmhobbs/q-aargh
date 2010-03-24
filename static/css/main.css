@@ -147,3 +147,27 @@ ul#menu li a:hover {
 	display: inline-block;
 	margin-left: 10px;
 }
+
+/* Tables */
+table {
+	border-collapse: collapse;
+	border: 1px solid #444;
+}
+td, th {
+	padding: 3px 5px;
+}
+th {
+	color: #FFF;
+	background: #777;
+	border-bottom: 1px solid #444;
+	border-right: 1px solid #444;
+}
+td {
+	border-right: 1px solid #777;
+}
+td.last {
+	border-right: 0 none;
+}
+tr.odd td {
+	background-color: #CECECE;
+}
