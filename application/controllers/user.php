@@ -67,8 +67,13 @@
 				$form->add_rules( 'username', 'required' );
 				$form->add_rules( 'password', 'required' );
 				
+				$form->add_callbacks( 'email', array( $this, '_unique_email' ) );
+				$form->add_callbacks( 'username', array( $this, '_unique_username' ) );
+				
 				if( $form->validate() ) {
+				
 					$user = ORM::factory( 'user' );
+					
 					$user->email = $post['email'];
 					$user->username = $post['username'];
 					$user->password = $post['password'];
@@ -109,19 +114,21 @@
 			if( $post = $this->input->post() )
 				$code = $post['code'];
 		
-			$prop = ORM::factory( 'user_property' )->where( 'key', 'confirm' )->where( 'value', $code )->find();
-			
-			if( $prop->loaded ) {
-				$user = ORM::factory( 'user', $prop->user_id );
-				$prop->delete();
-				$user->add( ORM::factory( 'role', 'login' ) );
-				$user->save();
-				Auth::instance()->force_login( $user->username );
-				$this->session->set_flash( 'notice', Kohana::lang( 'user.account_confirmed' ) );
-				url::redirect( '/user' );
-			}
-			else {
-				$this->session->set_flash( 'error', Kohana::lang( 'user.no_user_for_confirm_code' ) );
+			if( ! is_null( $code ) ) {
+				$prop = ORM::factory( 'user_property' )->where( 'key', 'confirm' )->where( 'value', $code )->find();
+				
+				if( $prop->loaded ) {
+					$user = ORM::factory( 'user', $prop->user_id );
+					$prop->delete();
+					$user->add( ORM::factory( 'role', 'login' ) );
+					$user->save();
+					Auth::instance()->force_login( $user->username );
+					$this->session->set_flash( 'notice', Kohana::lang( 'user.account_confirmed' ) );
+					url::redirect( '/user' );
+				}
+				else {
+					$this->session->set_flash( 'error', Kohana::lang( 'user.no_user_for_confirm_code' ) );
+				}
 			}
 
 		}
@@ -142,4 +149,18 @@
 // 				
 // 				url::redirect( '/' );
 // 		}
-	}
+
+		/******* Validation Callbacks *******/
+		
+		public function _unique_email ( Validation $array, $field ) {
+			$exists = (bool) ORM::factory( 'user' )->where( 'email', $array[$field] )->count_all();
+			if( $exists ) { $array->add_error($field, 'exists'); }
+		}
+		
+		public function _unique_username ( Validation $array, $field ) {
+			$exists = (bool) ORM::factory( 'user' )->where( 'username', $array[$field] )->count_all();
+			if( $exists ) { $array->add_error($field, 'exists'); }
+		}
+
+
+	} // class User_Controller
