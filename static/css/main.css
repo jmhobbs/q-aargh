@@ -138,3 +138,12 @@ ul#menu li a:hover {
 	color: #444;
 	background-color: #CCC;
 }
+
+.form-error {
+	font-size: 10px;
+	background: #FFBFBF;
+	padding: 2px 5px;
+	border: 1px solid #BF0000;
+	display: inline-block;
+	margin-left: 10px;
+}
