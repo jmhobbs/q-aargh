@@ -20,7 +20,8 @@
 			$island = sha1( $island );
 			$cache_dir = Kohana::config( 'qaargh.qr_directory' );
 			$subdir = substr( $island, 0, 1);
-			$cache_file = "{$cache_dir}/{$subdir}/{$island}_{$width}x{$height}.png";
+			$cache_path = "/{$subdir}/{$island}_{$width}x{$height}.png";
+			$cache_file = "{$cache_dir}{$cache_path}";
 			
 			if( ! file_exists( $cache_file ) ) {
 				
@@ -39,7 +40,7 @@
 
 			}
 			
-			return $cache_file;
+			return '/qr/' . $cache_path;
 		}
 
 	}
