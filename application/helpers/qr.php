@@ -15,7 +15,7 @@
 	
 		public static function get ( $island, $width=150, $height=150 ) {
 			//! \todo UTF-8 conversion or url?
-			$url = "http://chart.apis.google.com/chart?chs={$width}x{$height}&cht=qr&chl=" .urlencode( Kohana::config( 'core.site_domain' ) . $island ). "&choe=UTF-8%chld=L|4";
+			$url = "http://chart.apis.google.com/chart?chs={$width}x{$height}&cht=qr&chl=" .urlencode( $island->get_link() ). "&choe=UTF-8%chld=L|4";
 
 			$island = sha1( $island );
 			$cache_dir = Kohana::config( 'qaargh.qr_directory' );
