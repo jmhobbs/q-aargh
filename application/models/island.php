@@ -18,4 +18,6 @@
 			parent::save();
 		}
 
+		public function get_link () { return url::site( '/sail/' . $this->code ); }
+
 	}
