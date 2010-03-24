@@ -4,7 +4,7 @@
 	
 		public function index ( $stub = null ) {
 			if( is_null( $stub ) )
-				Kohana::config( 'qaargh.homepage' );
+				$stub = Kohana::config( 'qaargh.homepage' );
 			
 			$page = ORM::factory( 'page' )->where( 'stub', $stub )->find();
 
