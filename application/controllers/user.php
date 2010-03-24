@@ -54,6 +54,21 @@
 			$this->template->title = Kohana::lang( 'user.sign_up' );
 			$this->template->view->username = '';
 			$this->template->view->email = '';
+			
+			if( $post = $this->input->post() ) {
+				
+				$user = ORM::factory( 'user' );
+				$user->email = $post->email;
+				$user->username = $post->username;
+				$user->password = $post->password;
+				
+				//! \todo Tokens & Confirm email?
+				if( $user->save() ) {
+					$this-session->set_flash( 'notice', 'User Created' );
+				}
+				
+			}
+			
 		} // User_Controller::create
 		
 		function islands () {
