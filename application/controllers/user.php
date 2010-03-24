@@ -52,21 +52,41 @@
 		
 		function create () {
 			$this->template->title = Kohana::lang( 'user.sign_up' );
+			
+			$this->template->view->errors = array();
 			$this->template->view->username = '';
 			$this->template->view->email = '';
 			
 			if( $post = $this->input->post() ) {
 				
-				$user = ORM::factory( 'user' );
-				$user->email = $post->email;
-				$user->username = $post->username;
-				$user->password = $post->password;
+				$this->template->view->email = $post['email'];
+				$this->template->view->username = $post['username'];
 				
-				//! \todo Tokens & Confirm email?
-				if( $user->save() ) {
-					$this-session->set_flash( 'notice', 'User Created' );
+				$form =  new Validation( $post );
+				$form->add_rules( 'email', 'required', 'valid::email' );
+				$form->add_rules( 'username', 'required' );
+				$form->add_rules( 'password', 'required' );
+				
+				if( $form->validate() ) {
+					$user = ORM::factory( 'user' );
+					$user->email = $post['email'];
+					$user->username = $post['username'];
+					$user->password = $post['password'];
+
+					if( $user->save() ) {
+						$prop = ORM::factory( 'user_property' );
+						$prop->user_id = $user->id;
+						$prop->key = 'confirm';
+						$prop->value = sha1( $user->id . time() . Kohana::config( 'qaargh.confirm_salt' ) );
+						$prop->save();
+						//! \todo Send confirmation email!
+						$this->session->set_flash( 'notice', 'User Created' );
+						url::redirect( "/user/login" );
+					}
 				}
-				
+				else {
+					$this->template->view->errors = $form->errors( 'form_errors' );
+				}
 			}
 			
 		} // User_Controller::create
