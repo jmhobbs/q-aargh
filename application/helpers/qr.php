@@ -13,14 +13,14 @@
 			40 => 4296
 		);
 	
-		public static function get ( $island, $width=150, $height=150 ) {
+		public static function get ( $island, $size=150 ) {
 			//! \todo UTF-8 conversion or url?
-			$url = "http://chart.apis.google.com/chart?chs={$width}x{$height}&cht=qr&chl=" .urlencode( $island->get_link() ). "&choe=UTF-8%chld=L|4";
+			$url = "http://chart.apis.google.com/chart?chs={$size}x{$size}&cht=qr&chl=" .urlencode( $island->get_link() ). "&choe=UTF-8%chld=L|4";
 
 			$island = sha1( $island );
 			$cache_dir = Kohana::config( 'qaargh.qr_directory' );
 			$subdir = substr( $island, 0, 1);
-			$cache_path = "/{$subdir}/{$island}_{$width}x{$height}.png";
+			$cache_path = "/{$subdir}/{$island}_{$size}x{$size}.png";
 			$cache_file = "{$cache_dir}{$cache_path}";
 			
 			if( ! file_exists( $cache_file ) ) {

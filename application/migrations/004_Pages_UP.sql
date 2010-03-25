@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `content` text NOT NULL,
   `views` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `last_view` int(10) UNSIGNED,  
-  `created` int(10) UNSIGNED NOT NULL,
-  `modified` int(10) UNSIGNED NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY  ( `stub` )
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 

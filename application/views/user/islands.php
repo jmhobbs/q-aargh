@@ -20,7 +20,7 @@
 		<td><?= $island->modified ?></td>
 		<td style="text-align: right;"><?= $island->views ?></td>
 		<td><?= html::anchor( $island->get_link(), 'Visit' ) ?></td>
-		<td class="last"><?= html::anchor( qr::get( $island ), 'QR Code' ) ?></td>
+		<td class="last"><?= html::anchor( '/island/qr/' . $island->code, 'QR Code' ) ?></td>
 	</tr>
 	<?php endforeach; ?>
 </table>

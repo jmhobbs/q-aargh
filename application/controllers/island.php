@@ -7,7 +7,7 @@
 			'create' => '*'
 		);
 	
-		public function index ( $code ) {
+		public function index ( $code = null ) {
 			$this->template->view->island = ORM::factory( 'island' )->find_by_code( $code );
 			if( $this->template->view->island === false ) {
 				$this->template->title = Kohana::lang( 'island.missing' );
@@ -17,7 +17,7 @@
 			$this->template->title = $this->template->view->island->title;
 		} // Island_Controller::index
 	
-		public function edit ( $code ) {}
+		public function edit ( $code = null ) {}
 		
 		public function create () {
 		
@@ -52,6 +52,30 @@
 				}
 
 			}
+		} // Island_Controller::create
+		
+		public function qr ( $code = null ) {
+		
+			$this->template->view->island = ORM::factory( 'island' )->find_by_code( $code );
+			if( $this->template->view->island === false ) {
+				$this->template->title = Kohana::lang( 'island.missing' );
+				$this->template->view = new View( 'island/missing' );
+				return;
+			}
+			$this->template->title = 'QR Code For: ' . $this->template->view->island->title;
+			
+			$this->template->view->size = 150;
+			if( $post= $this->input->post() )
+				$this->template->view->size = intval( $post['size'] );
+		
+			$this->template->view->qrimg = false;
+			if( $this->template->view->size > 1024 )
+				return $this->session->set_flash( 'error', 'Size can\'t be larger than 1024.' );
+			if( $this->template->view->size < 50 )
+				return $this->session->set_flash( 'error', 'Size can\'t be smaller than 50.' );
+		
+			$this->template->view->qrimg = qr::get( $this->template->view->island, $this->template->view->size );
+		
 		}
 	
 	}

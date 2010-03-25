@@ -7,10 +7,7 @@
 		);
 	
 		function index ( $username = null ) {
-		
-			$this->template->view->username = $username;
-			$this->template->title = Kohana::lang( 'user.view' );
-		
+
 			if( is_null( $username ) )
 				$user = Auth::instance()->get_user();
 			else
@@ -19,8 +16,17 @@
 			if( false === $user || ! $user->loaded ) {
 				$this->template->view = new View( 'user/missing' );
 				$this->template->view->username = $username;
+				$this->template->title = Kohana::lang( 'user.view' ) . ' - ' . $username;
 				return;
 			}
+			
+			$this->template->view->username = $user->username;
+			$this->template->title = Kohana::lang( 'user.view' ) . ' - ' . $user->username;
+			
+			$this->template->view->user = $user;
+			$this->template->view->islands = ORM::factory( 'island' )->where( 'user_id', $user->id )->count_all();
+			$this->template->view->visited = ORM::factory( 'visit' )->where( 'user_id', $user->id )->select( 'DISTINCT island_stub' )->count_all();
+			
 		}
 	
 		function logout () {

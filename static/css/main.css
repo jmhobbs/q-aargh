@@ -99,6 +99,7 @@ label {
 	font-weight: bold;
 	margin-right: 10px;
 	vertical-align: top;
+	padding-top: 10px;
 }
 input {
 	width: 200px;

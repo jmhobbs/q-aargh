@@ -1,2 +1,1 @@
-DROP TABLE IF EXISTS `text_posts`;
 DROP TABLE IF EXISTS `islands`;

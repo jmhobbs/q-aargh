@@ -12,8 +12,7 @@ CREATE TABLE IF NOT EXISTS `islands` (
   `postibility` varchar(10) NOT NULL DEFAULT 'private',
   `post_password` varchar(255) NOT NULL,
   
-  `views` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `last_view` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `visits` int(10) UNSIGNED NOT NULL DEFAULT '0',
   
    `created` datetime NOT NULL,
    `modified` datetime NOT NULL,
@@ -24,23 +23,3 @@ CREATE TABLE IF NOT EXISTS `islands` (
 
 ALTER TABLE `islands`
   ADD CONSTRAINT `islands_ibfk_1` FOREIGN KEY ( `user_id` ) REFERENCES `users` ( `id` ) ON DELETE CASCADE;
-
-CREATE TABLE IF NOT EXISTS `text_posts` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `island_id` int(11) UNSIGNED NOT NULL,
-
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `text` text NOT NULL DEFAULT '',
-  
-  `visibility` varchar(10) NOT NULL DEFAULT 'private',
-  `created` datetime NOT NULL,
-  
-  PRIMARY KEY  ( `id` ),
-  KEY `fk_user_id` ( `user_id` ),
-  KEY `fk_island_id` ( `island_id` )
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
-ALTER TABLE `text_posts`
-  ADD CONSTRAINT `text_posts_ibfk_1` FOREIGN KEY ( `user_id` ) REFERENCES `users` ( `id` ) ON DELETE CASCADE,
-  ADD CONSTRAINT `text_posts_ibfk_2` FOREIGN KEY ( `island_id` ) REFERENCES `islands` ( `id` ) ON DELETE CASCADE;

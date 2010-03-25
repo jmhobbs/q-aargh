@@ -3,6 +3,7 @@
 	class Island_Model extends ORM {
 	
 		protected $belongs_to = array( 'user' );
+		protected $has_many = array( 'visits' );
 	
 		public static function find_by_code ( $code ) {
 			$island = ORM::factory( 'island' )->where( 'code', $code )->find();
