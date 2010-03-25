@@ -5,7 +5,7 @@
 	echo form::input( 'title' );
 	echo '<br/>';
 	echo form::label( 'introduction', 'Introduction:' );
-	echo form::textarea( 'introduction' );
+	echo form::textarea( 'introduction', '', 'class="markitup"' );
 	echo '<br/>';
-	echo form::submit( 'submit', 'Create!' );
+	echo form::submit( 'submit', 'Create!', 'class="submit label-offset"' );
 	echo form::close();
