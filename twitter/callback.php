@@ -13,7 +13,7 @@ require_once('config.php');
 /* If the oauth_token is old redirect to the connect page. */
 if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
   $_SESSION['oauth_status'] = 'oldtoken';
-  header('Location: ./clearsessions.php');
+  header('Location: ./clear.php');
 }
 
 /* Create TwitteroAuth object with app key/secret and token key/secret from default phase */
@@ -36,5 +36,5 @@ if (200 == $connection->http_code) {
   header('Location: ./index.php');
 } else {
   /* Save HTTP status for error dialog on connnect page.*/
-  header('Location: ./clearsessions.php');
+  header('Location: ./clear.php');
 }
