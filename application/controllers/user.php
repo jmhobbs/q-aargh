@@ -143,6 +143,12 @@
 			$this->template->view->islands = ORM::factory( 'island' )->where( 'user_id', Auth::instance()->get_user()->id )->find_all();
 		}
 		
+		
+		public function twitter ( $oauth ) {
+			var_dump( unserialize( file_get_contents( APPPATH . 'tmp/TWITTER' . preg_replace( '/[^0-9A-Za-z-]/', '', $oauth ) ) ) );
+			die();
+		}
+		
 // 		function admin_create ( $username, $password ) {
 // 				$user = ORM::factory( 'user' );
 // 				$user->username = $username;
@@ -167,6 +173,5 @@
 			$exists = (bool) ORM::factory( 'user' )->where( 'username', $array[$field] )->count_all();
 			if( $exists ) { $array->add_error($field, 'exists'); }
 		}
-
 
 	} // class User_Controller
