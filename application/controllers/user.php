@@ -144,9 +144,21 @@
 		}
 		
 		
-		public function twitter ( $oauth ) {
-			var_dump( unserialize( file_get_contents( APPPATH . 'tmp/TWITTER' . preg_replace( '/[^0-9A-Za-z-]/', '', $oauth ) ) ) );
-			die();
+		public function twitter ( $oauth = '' ) {
+			$file = APPPATH . 'tmp/TWITTER' . preg_replace( '/[^0-9A-Za-z-]/', '', $oauth );
+			$twitter_info = unserialize( file_get_contents( $file ) );
+			$twitter_user = ORM::factory( 'twitter_user', $twitter_info->username );
+			if( $twitter_user->loaded() ) {
+				$user = ORM::factory( 'user', $twitter_user->user_id );
+				Auth::instance()->force_login( $user->username );
+				$this->session->set_flash( 'notice', 'Logged in via Twitter' );
+				unlink( $file );
+				url::redirect( '/user' );
+			}
+			else {
+				$this->template->view->username = $twitter_info->username;
+				$this->template->view->iusername = $twitter_info->username;
+			}
 		}
 		
 // 		function admin_create ( $username, $password ) {
