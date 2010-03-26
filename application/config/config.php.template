@@ -117,5 +117,6 @@ $config['extension_prefix'] = 'MY_';
 $config['modules'] = array
 (
 	MODPATH . 'auth',
-	MODPATH . 'migrations'
+	MODPATH . 'migrations',
+	MODPATH . 'ktwitter'
 );
