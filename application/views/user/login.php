@@ -8,3 +8,8 @@
 	echo '<br/>';
 	echo form::submit( 'submit', Kohana::lang( 'user.log_in' ), 'class="submit label-offset"' );
 	echo form::close();
+?>
+
+<p class="label-offset">
+	<?= html::anchor( "/twitter", html::image( 'img/twitter-login.png' ) ); ?>
+</p>

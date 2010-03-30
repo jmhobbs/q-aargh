@@ -3,3 +3,5 @@ CREATE TABLE  `twitter_users` (
 	`user_id` INT UNSIGNED,
 	PRIMARY KEY (  `username` )
 );
+
+INSERT INTO `roles` ( `id`, `name`, `description` ) VALUES(3, 'twitter', 'Account created through twitter.');
