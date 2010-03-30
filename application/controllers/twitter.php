@@ -4,48 +4,65 @@
 	
 		public function __construct () {
 			parent::__construct();
-			$this->twitter = new Twitter;
-			$this->twitter->check_login();
+			require_once( Kohana::find_file( 'vendor', 'twitteroauth/twitteroauth' ) );
 		}
 	
 		public function index () {
 			if( Auth::instance()->logged_in() )
 				url::redirect( '/' );
 
-			if( $this->twitter->check_login() )
-				url::redirect( '/twitter/account' );
+				$connection = new TwitterOAuth(
+					Kohana::config( 'twitter.consumer_key' ),
+					Kohana::config( 'twitter.consumer_secret' )
+				);
+				
+				$request_token = $connection->getRequestToken();
 
-			$this->twitter->getRequestTokens();
-			$url = $this->twitter->getAuthorizeUrl();
-			
-			$this->template->view = new View( 'redirect', array( 'destination' => 'Twitter', 'url' => $url ) );
+				/* Save temporary credentials to session. */
+				$_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
+				$_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
+				
+				/* If last connection failed don't display authorization link. */
+				switch ($connection->http_code) {
+					case 200:
+						$url = $connection->getAuthorizeURL($token);
+						url::redirect( $url ); 
+						break;
+					default:
+						$this->template->view = 'Could not connect to Twitter. Refresh the page or try again later.';
+				}
+
 		}
 	
 		public function complete () {
-			if( $this->twitter->check_login() == False ) {
-				$this->twitter->sessionRequestTokens();
-				$this->twitter->tradeRequestForAccess();
-				if( ! $this->twitter->storeTokens() )
-					die( 'Twitter Authentication Error' );
-			}
 			
-			if( ! empty( $this->twitter->user->user_id ) ) {
-				$user = ORM::factory( 'user', $this->twitter->user->user_id );
-				Auth::instance()->force_login( $user->username );
-				$this->session->set_flash( 'notice', 'Logged In Via Twitter' );
-				url::redirect( '/' );
+			$connection = new TwitterOAuth(
+				Kohana::config( 'twitter.consumer_key' ),
+				Kohana::config( 'twitter.consumer_secret' ),
+				$_SESSION['oauth_token'],
+				$_SESSION['oauth_token_secret']
+			);
+
+			$access_token = $connection->getAccessToken();
+
+			/* Save the access tokens. Normally these would be saved in a database for future use. */
+			$_SESSION['access_token'] = $access_token;
+
+			unset($_SESSION['oauth_token']);
+			unset($_SESSION['oauth_token_secret']);
+
+			if ( 200 == $connection->http_code ) {
+				$_SESSION['twitter_user'] = $access_token['screen_name'];
+				die( "Success: " . $_SESSION['twitter_user'] );
+			} else {
+				die( 'Failure' );
 			}
-			else {
-				url::redirect( '/twitter/account' );
-			}
+
 		}
 		
 		public function account () {
-			if( $this->twitter->check_login() == False ) { die( 'No auth :-(' ); }
-
-			$this->template->view->iusername = $this->twitter->user->username;
-			$this->template->view->username = $this->twitter->user->username;
-
+			var_dump( $_SESSION );
+			die();
 		}
 	
 	}

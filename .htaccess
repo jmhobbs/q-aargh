@@ -10,8 +10,6 @@ RewriteRule ^(application|modules|system) - [F,L]
 # Let us call css/js/img from the base, even though they are in "static"
 RewriteRule ^(css|js|img|vendor)(.*) static/$1$2 [L]
 
-RewriteRule ^twitter/complete twitter/callback.php [L]
-
 # Allow any files or directories that exist to be displayed directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
