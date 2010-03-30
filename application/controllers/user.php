@@ -25,7 +25,7 @@
 			
 			$this->template->view->user = $user;
 			$this->template->view->islands = ORM::factory( 'island' )->where( 'user_id', $user->id )->count_all();
-			$this->template->view->visited = ORM::factory( 'visit' )->where( 'user_id', $user->id )->select( 'DISTINCT island_stub' )->count_all();
+			$this->template->view->visited = ORM::factory( 'visit' )->where( 'user_id', $user->id )->select( 'DISTINCT island_code' )->count_all();
 			
 		}
 	
@@ -141,24 +141,6 @@
 		
 		function islands () {
 			$this->template->view->islands = ORM::factory( 'island' )->where( 'user_id', Auth::instance()->get_user()->id )->find_all();
-		}
-		
-		
-		public function twitter ( $oauth = '' ) {
-			$file = APPPATH . 'tmp/TWITTER' . preg_replace( '/[^0-9A-Za-z-]/', '', $oauth );
-			$twitter_info = unserialize( file_get_contents( $file ) );
-			$twitter_user = ORM::factory( 'twitter_user', $twitter_info->username );
-			if( $twitter_user->loaded() ) {
-				$user = ORM::factory( 'user', $twitter_user->user_id );
-				Auth::instance()->force_login( $user->username );
-				$this->session->set_flash( 'notice', 'Logged in via Twitter' );
-				unlink( $file );
-				url::redirect( '/user' );
-			}
-			else {
-				$this->template->view->username = $twitter_info->username;
-				$this->template->view->iusername = $twitter_info->username;
-			}
 		}
 		
 // 		function admin_create ( $username, $password ) {

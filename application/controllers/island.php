@@ -15,6 +15,20 @@
 				return;
 			}
 			$this->template->title = $this->template->view->island->title;
+			
+			if( Auth::instance()->logged_in() ) {
+				$id = Auth::instance()->get_user()->id;
+				if( $this->template->view->island->user_id != $id ) {
+					$visit = ORM::factory( 'visit' )->where( 'user_id', $id )->find();
+					if( ! $visit->loaded ) {
+						$visit->user_id = $id;
+						$visit->island_code = $this->template->view->island->code;
+						$visit->visited = date( 'Y-m-d H:i:s' );
+						$visit->save();
+					}
+				}
+			}
+			
 		} // Island_Controller::index
 	
 		public function edit ( $code = null ) {}

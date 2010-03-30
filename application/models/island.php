@@ -21,4 +21,8 @@
 
 		public function get_link () { return url::site( '/sail/' . $this->code ); }
 
+		public function visits () {
+			return ORM::factory( 'visit' )->where( 'island_code', $this->code )->count_all(); 
+		}
+	
 	}
