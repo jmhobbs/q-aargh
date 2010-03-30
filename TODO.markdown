@@ -2,6 +2,6 @@
 
 I gave up on i18n halfway through, so there is English language in my views and stuff. I'm lame, I know.
 
-# Twitter
+# Log In
 
-This integration is SO hacky.  I need to figure out why Kohana destroys all my session data.
+Implement return-to so when you land on an island and log in you'll go right back.
