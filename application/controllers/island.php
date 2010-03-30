@@ -15,6 +15,7 @@
 				return;
 			}
 			$this->template->title = $this->template->view->island->title;
+			$this->template->robots = '<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />';
 			
 			if( Auth::instance()->logged_in() ) {
 				$id = Auth::instance()->get_user()->id;

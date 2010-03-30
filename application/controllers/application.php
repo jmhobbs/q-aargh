@@ -14,6 +14,7 @@
 
 			$this->template->title = ucwords( router::$method );
 			$this->session = Session::instance();
+			$this->template->robots = '';
 
 			try {
 				$this->template->view = new View( strtolower( router::$controller . '/' . router::$method ) );

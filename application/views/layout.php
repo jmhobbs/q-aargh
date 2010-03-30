@@ -3,6 +3,7 @@
 		<title><?= Kohana::lang( 'general.sitename' ); ?> <?= html::specialchars( $title ); ?></title>
 		<?= html::stylesheet( 'css/main', 'screen', true ); ?>
 		<?= html::script( 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' ) ?>
+		<?= $robots; ?>
 	</head>
 	<body>
 		<div id="container">
