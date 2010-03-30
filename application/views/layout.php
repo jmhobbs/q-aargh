@@ -3,13 +3,6 @@
 		<title><?= Kohana::lang( 'general.sitename' ); ?> <?= html::specialchars( $title ); ?></title>
 		<?= html::stylesheet( 'css/main', 'screen', true ); ?>
 		<?= html::script( 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' ) ?>
-		<?= html::script( 'vendor/markitup/jquery.markitup.js' ) ?>
-		<?= html::script( 'vendor/markitup/markdown/set.js' ) ?>
-		<?= html::stylesheet( 'vendor/markitup/skins/markitup/style.css', 'screen', true ); ?>
-		<?= html::stylesheet( 'vendor/markitup/markdown/style.css', 'screen', true ); ?>
-		<script type="text/javascript">
-			$( document ).ready( function() { $(".markitup").markItUp( mySettings ); } );
-		</script>
 	</head>
 	<body>
 		<div id="container">

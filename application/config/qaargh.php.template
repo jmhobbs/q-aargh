@@ -1,6 +1,6 @@
 <?php
-	$config["qr_directory"] = DOCROOT . 'qr'
-	$config["version"] = 0.1;
-	$config["homepage"] = 'home';
-	$config["confirm_salt"] = "CHANGE_ME";
+	$config['qr_directory'] = DOCROOT . 'qr'
+	$config['version'] = 0.1;
+	$config['homepage'] = 'home';
+	$config['confirm_salt'] = 'CHANGE_ME';
 	$config['mailer'] = 'no-reply@localhost';
