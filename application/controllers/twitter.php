@@ -65,7 +65,7 @@
 					else {
 						$user = ORM::factory( 'user' )->where( 'username', $access_token['screen_name'] )->find();
 						if( ! $user->loaded ) {
-							$user->email = '';
+							$user->email = '@' . $access_token['screen_name'] . '@twitter';
 							$user->username = $access_token['screen_name'];
 							$user->password = sha1( $access_token['screen_name'] . time() . Kohana::config( 'qaargh.confirm_salt' ) );
 							$user->add( ORM::factory( 'role', 'login' ) );
@@ -96,10 +96,11 @@
 
 		public function account () {
 			$this->template->view->username = $_SESSION['twitter_user'];
+			
 			if( $post = $this->input->post() ) {
 				$user = ORM::factory( 'user' )->where( 'username', $post['username'] )->find();
 				if( ! $user->loaded ) {
-					$user->email = '';
+					$user->email = '@' . $_SESSION['twitter_user'] . '@twitter';
 					$user->username = $post['username'];
 					$user->password = sha1( $post['username']. time() . Kohana::config( 'qaargh.confirm_salt' ) );
 					$user->add( ORM::factory( 'role', 'login' ) );
@@ -117,9 +118,10 @@
 					unset( $_SESSION['twitter_user'] );
 				}
 				else {
-					$this->session_set_flash( 'error', 'Sorry, "' . html::specialchars( $post['username'] ) . '" is taken.' );
+					$this->session->set_flash( 'error', 'Sorry, "' . html::specialchars( $post['username'] ) . '" is taken.' );
 				}
 			}
-		}
+			
+		} //
 
 	}
