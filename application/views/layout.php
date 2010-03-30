@@ -14,7 +14,7 @@
 	<body>
 		<div id="container">
 			<div id="header">
-				<?= html::anchor( "/", html::image( array( 'src' => 'img/spirate.png', 'with' => 128, 'height' => 128 ), array( 'id' => 'the_captain' ) ), array( 'style' => "float: left;" ) ); ?>
+				<?= html::anchor( "/", html::image( array( 'src' => 'img/pirate.png', 'with' => 128, 'height' => 128 ), array( 'id' => 'the_captain' ) ), array( 'style' => "float: left;" ) ); ?>
 				<h1><?= $title; ?></h1>
 			</div>
 			<div id="content">
