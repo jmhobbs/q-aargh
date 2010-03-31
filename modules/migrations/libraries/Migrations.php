@@ -84,7 +84,7 @@
 							$this->set_schema_version( $index );
 						}
 						catch( Exception $e ) {
-							$output[] = "Error running migration $index up: " . $e->getMessage();
+							$output[] = "Error running migration $index UP: " . $e->getMessage();
 							break;
 						}
 					}
@@ -100,7 +100,7 @@
 							$this->set_schema_version( $index - 1 );
 						}
 						catch( Exception $e ) {
-							$output[] = "Error running migration $index down: " . $e->getMessage();
+							$output[] = "Error running migration $index DOWN: " . $e->getMessage();
 							break;
 						}
 					}
@@ -119,6 +119,7 @@
 			$db = Database::instance( $this->group );
 
 			foreach( $queries as $query ) {
+				if( empty( $query ) ) { continue; }
 				$db->query( $query );
 			}
 
