@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `islands` (
   `postibility` varchar(10) NOT NULL DEFAULT 'private',
   `post_password` varchar(255) NOT NULL,
   
-  `visits` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `views` int(10) UNSIGNED NOT NULL DEFAULT '0',
   
    `created` datetime NOT NULL,
    `modified` datetime NOT NULL,

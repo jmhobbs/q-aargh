@@ -17,6 +17,13 @@
 			$this->template->title = $this->template->view->island->title;
 			$this->template->robots = '<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />';
 			
+			// Increment view counter
+			if( ! Auth::instance()->logged_in() or Auth::instance()->get_user()->id != $this->template->view->island->user_id ) {
+				$this->template->view->island->views++;
+				$this->template->view->island->save();
+			}
+			
+			// Increment first visit counter
 			if( Auth::instance()->logged_in() ) {
 				$id = Auth::instance()->get_user()->id;
 				if( $this->template->view->island->user_id != $id ) {
