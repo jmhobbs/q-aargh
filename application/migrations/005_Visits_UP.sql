@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `visits` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `island_code` varchar(255) NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `visited` datetime NOT NULL,
