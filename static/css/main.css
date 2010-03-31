@@ -99,7 +99,6 @@ label {
 	font-weight: bold;
 	margin-right: 10px;
 	vertical-align: top;
-	padding-top: 10px;
 }
 input {
 	width: 200px;
@@ -177,4 +176,17 @@ td.last {
 }
 tr.odd td {
 	background-color: #CECECE;
+}
+
+/* Island Display */
+fieldset.island-stats {
+	background: #CCC;
+	border: 1px solid #777;
+	padding: 10px;
+}
+
+legend {
+	font-weight: bold;
+	font-size: 12px;
+	text-shadow: 1px 1px 1px #999;
 }
