@@ -6,7 +6,7 @@
 		<?= $robots; ?>
 	</head>
 	<body>
-		<?= html::image( array( 'src' => 'img/qaargh-beta.png', 'style' => 'position: fixed; top: -5px; right: -5px; z-index: 5;' ) ) ?>
+		<?= html::anchor( '/page/beta', html::image( array( 'src' => 'img/qaargh-beta.png', 'style' => 'position: fixed; top: -15px; right: -20px; z-index: 5;' ) ) ) ?>
 		<div id="container">
 			<div id="header">
 				<?= html::anchor( "/", html::image( array( 'src' => 'img/pirate.png', 'with' => 128, 'height' => 128 ), array( 'id' => 'the_captain' ) ), array( 'style' => "float: left;" ) ); ?>
