@@ -180,8 +180,8 @@ tr.odd td {
 
 /* Island Display */
 fieldset.island-stats {
-	background: #CCC;
-	border: 1px solid #777;
+	background: #EEE;
+	border: 1px solid #AAA;
 	padding: 10px;
 }
 
@@ -189,4 +189,17 @@ legend {
 	font-weight: bold;
 	font-size: 12px;
 	text-shadow: 1px 1px 1px #999;
+}
+
+.post {
+	margin: 10px 0;
+	border: 1px solid #AAA;
+	background: #EEE;
+	padding: 10px;
+}
+
+.post-attribution {
+	text-align: right;
+	font-weight: bold;
+	font-size: 12px;
 }

@@ -1,12 +1,14 @@
 <fieldset class="island-stats">
 	<legend>Island Stats</legend>
 	<label>Owner:</label> <?= html::anchor( '/user/view/' . html::specialchars( $island->user->username ), html::specialchars( $island->user->username ) ); ?><br/>
-	<label>Visits:</label> <?= $island->visits() ?><br/>
+	<label>Uniques:</label> <?= $island->visits() ?><br/>
 	<label>Views:</label> <?= $island->views ?><br/>
 </fieldset>
 
 <h2>Message From The Founder</h2>
-<?= text::auto_p( html::specialchars( $island->introduction ) ); ?>
+<div class="post text-post">
+	<?= text::auto_p( html::specialchars( $island->introduction ) ); ?>
+</div>
 
 <h2>Subsequent Posts</h2>
 <?php
@@ -15,3 +17,15 @@
 		$view->post = $post;
 		echo $view->render();
 	}
+?>
+<?php if( Auth::instance()->logged_in() ): ?>
+<h2>Leave A Post</h2>
+<?php
+	echo form::open( '/island/post/' . $island->code );
+	echo form::label( 'comment', 'Comment:' );
+	echo form::textarea( 'comment' );
+	echo '<br/>';
+	echo form::submit( 'submit', 'Submit', 'class="submit label-offset"' );
+	echo form::close();
+?>
+<?php endif; ?>

@@ -4,7 +4,8 @@
 	
 		protected $auth_required = array(
 			'edit' => '*',
-			'create' => '*'
+			'create' => '*',
+			'post' => '*'
 		);
 	
 		public function index ( $code = null ) {
@@ -38,6 +39,35 @@
 			}
 			
 		} // Island_Controller::index
+	
+		public function post ( $code = null ) {
+			$island = ORM::factory( 'island' )->find_by_code( $code );
+			if( $island === false ) {
+				$this->template->title = Kohana::lang( 'island.missing' );
+				$this->template->view = new View( 'island/missing' );
+				return;
+			}
+			
+			if( empty( $_REQUEST['comment'] ) ) {
+				$this->session->set_flash( 'error', 'No comment!' );
+				url::redirect( '/island/index/' . $code );
+			}
+			
+			$text_post = ORM::factory( 'text_post' );
+			$text_post->content = $_REQUEST['comment'];
+			$text_post->save();
+			
+			$post = ORM::factory( 'post' );
+			$post->island_code = $code;
+			$post->user_id = Auth::instance()->get_user()->id;
+			$post->posted = date( 'Y-m-d H:i:s' );
+			$post->post_id = $text_post->id;
+			$post->type = 'text';
+			$post->save();
+			
+			$this->session->set_flash( 'notice', 'Added your comment.' );
+			url::redirect( '/island/index/' . $code );
+		}
 	
 		public function edit ( $code = null ) {}
 		
