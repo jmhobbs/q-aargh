@@ -44,7 +44,7 @@
 			
 				if( $form->validate() ) {
 					$island = ORM::factory( 'island' );
-					$island->user_id = 1;//Auth::instance()->get_user()->id;
+					$island->user_id = Auth::instance()->get_user()->id;
 					$island->title = $post['title'];
 					$island->introduction = $post['introduction'];
 					$now = date( 'Y-m-d H:i:s' );
@@ -91,6 +91,6 @@
 		
 			$this->template->view->qrimg = qr::get( $this->template->view->island, $this->template->view->size );
 		
-		}
+		} // Island_Controller::qr
 	
 	}

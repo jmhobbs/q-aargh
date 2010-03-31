@@ -24,5 +24,9 @@
 		public function visits () {
 			return ORM::factory( 'visit' )->where( 'island_code', $this->code )->count_all(); 
 		}
+		
+		public function posts () {
+			return ORM::factory( 'post' )->where( 'island_code', $this->code )->find_all(); 
+		}
 	
 	}
