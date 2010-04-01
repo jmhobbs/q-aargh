@@ -12,6 +12,8 @@
 
 			parent::__construct();
 
+			Footsteps::step();
+
 			$this->template->title = ucwords( router::$method );
 			$this->session = Session::instance();
 			$this->template->robots = '';
