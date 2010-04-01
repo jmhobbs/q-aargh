@@ -18,6 +18,16 @@
 			$this->session = Session::instance();
 			$this->template->robots = '';
 
+			if( router::$controller != 'page' ) {
+				if( ! Auth::instance()->logged_in() and ! cookie::get( 'qaargh_visited', false, true ) ) {
+					$this->session->set_flash( 'notice', 'It looks like this is your first time here. Click "home" to find out more about Q-Aargh!' );
+					cookie::set( array( 'name' => 'qaargh_visited', 'value' => true, 'expire' => 31536000 ) );
+				}
+			}
+			else {
+				cookie::set( array( 'name' => 'qaargh_visited', 'value' => true, 'expire' => 31536000 ) );
+			}
+
 			try {
 				$this->template->view = new View( strtolower( router::$controller . '/' . router::$method ) );
 			}
